@@ -3,8 +3,8 @@ use anyhow::{anyhow, Result};
 use crate::{
     cl100k_base, cl100k_base_singleton,
     model::get_context_size,
-    o200k_base, o200k_base_singleton, o200k_harmony, p50k_base, p50k_base_singleton, p50k_edit,
-    p50k_edit_singleton, r50k_base, r50k_base_singleton,
+    o200k_base, o200k_base_singleton, o200k_harmony, o200k_harmony_singleton, p50k_base,
+    p50k_base_singleton, p50k_edit, p50k_edit_singleton, r50k_base, r50k_base_singleton,
     tokenizer::{get_tokenizer, Tokenizer},
     CoreBPE,
 };
@@ -294,6 +294,7 @@ pub fn get_bpe_from_tokenizer(tokenizer: Tokenizer) -> Result<CoreBPE> {
 /// The singleton is initialized once and reused for all subsequent calls with the same tokenizer.
 pub fn get_bpe_singleton_from_tokenizer(tokenizer: Tokenizer) -> &'static CoreBPE {
     match tokenizer {
+        Tokenizer::O200kHarmony => o200k_harmony_singleton(),
         Tokenizer::O200kBase => o200k_base_singleton(),
         Tokenizer::Cl100kBase => cl100k_base_singleton(),
         Tokenizer::R50kBase => r50k_base_singleton(),
